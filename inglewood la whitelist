@@ -254,50 +254,6 @@ CreateTab:CreateInput({
   end
 })
 
-    local WeaponDropdown = CombatTab:CreateDropdown({
-    Name = "SELECT WEAPON",
-    Options = local AllWeapons = {
-    Callback = function(Value)
-        State.selectedWeapon = Value
-    end
-})
-
-CombatTab:CreateButton({
-    Name = "🎁 GIVE WEAPON",
-    Callback = function()
-        if not State.selectedWeapon then
-            Rayfield:Notify({Title = "❌ ERROR", Content = "No weapon selected", Duration = 2})
-            return
-        end
-        
-        local success = GiveWeapon(State.selectedWeapon, LocalPlayer)
-        Rayfield:Notify({
-            Title = success and "✅ SUCCESS" or "❌ FAILED",
-            Content = State.selectedWeapon .. (success and " given!" or " - Error"),
-            Duration = 2
-        })
-    end
-})
-    
-    local function GiveWeapon(weaponName, targetPlayer)
-    targetPlayer = targetPlayer or LocalPlayer
-    
-    local remoteNames = {
-        "GiveWeapon", "SpawnWeapon", "GiveItem", "AddWeapon", "WeaponGive",
-        "EquipWeapon", "GunRemote", "WeaponRemote", "ItemGive", "RequestWeapon",
-        "GiveWep", "AddWep", "RequestItem", "SpawnItem", "CreateWeapon"
-    }
-    
-    local success = false
-    for i = 1, 3 do
-        success = FireRemote(remoteNames, weaponName, targetPlayer, 1)
-        if success then break end
-        task.wait(0.05)
-    end
-    
-    return success
-end
-        
 local whitelistedUsers = {
     ["mostwithandbanexynth"] = true,
     ["JaroneRRPAlt"] = true,
@@ -331,4 +287,4 @@ local localPlayer = game.Players.LocalPlayer
  
 if not whitelistedUsers[localPlayer.Name] then
     localPlayer:Kick("JS BUY THE SCRIPT NIGGA")
-end
+endu
